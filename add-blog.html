@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Blog - BlogApp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>BlogApp</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Features</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <!-- <li><a href="add-blog.html">Add Blog</a></li> -->
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="add-blog">
+        <h2>Write Your Blog</h2>
+        <form id="blogForm">
+            <div class="form-group">
+                <label for="blog-title">Blog Title</label>
+                <input type="text" id="blog-title" name="title" required placeholder="Enter Blog Title">
+            </div>
+            <div class="form-group">
+                <label for="blog-category">Category</label>
+                <select id="blog-category" name="category" required>
+                    <option value="Technology">Technology</option>
+                    <option value="Lifestyle">Lifestyle</option>
+                    <option value="Health">Health</option>
+                    <option value="Business">Business</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="blog-content">Blog Content</label>
+                <textarea id="blog-content" name="content" rows="6" required placeholder="Write your blog content here"></textarea>
+            </div>
+            <button type="submit" class="cta-button">Publish Blog</button>
+        </form>
+
+        <h3>All Published Blogs:</h3>
+        <ul id="blogList"></ul>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact">
+        <p>&copy; 2021 BlogApp. All rights reserved.</p>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+        <div class="social-media">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="newsletter">
+          <h4>Subscribe to our Newsletter</h4>
+          <form action="#">
+            <input type="email" placeholder="Enter your email address">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </footer>
+      <script>
+        let blogs = [];
+        document.getElementById("blogForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let blog = {
+                title: document.getElementById("blog-title").value,
+                category: document.getElementById("blog-category").value,
+                content: document.getElementById("blog-content").value
+            };
+
+            blogs.push(blog);
+
+            document.getElementById("blogForm").reset();
+
+            displayBlogs();
+        });
+
+        function displayBlogs() {
+            const blogList = document.getElementById("blogList");
+            blogList.innerHTML = "";
+            blogs.forEach((blog, index) => {
+                let listItem = document.createElement("li");
+                listItem.innerHTML = `<strong>Title:</strong> ${blog.title} <br>
+                                      <strong>Category:</strong> ${blog.category} <br>
+                                      <strong>Content:</strong> ${blog.content} <br><br>`;
+                blogList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
